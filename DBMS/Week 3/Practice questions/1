@@ -1,0 +1,12 @@
+select t.name
+from teams t, matches m
+where t.team_id= m.host_team_id or t.team_id= m.guest_team_id
+group by t.name
+having count(m.match_num)>3
+
+
+------------------------------------------
+solution 2
+select name from teams as o
+where (select count(match_num) from matches
+where host_team_id = o.team_id or guest_team_id = o.team_id) > 3
